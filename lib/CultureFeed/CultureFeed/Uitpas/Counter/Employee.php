@@ -55,15 +55,17 @@ class CultureFeed_Uitpas_Counter_Employee extends CultureFeed_Uitpas_ValueObject
     $counter->consumerKey = $object->xpath_str('consumerKey');
     $counter->name = $object->xpath_str('name');
     $counter->role = $object->xpath_str('role');
+    
+    foreach ($object->xpath('cardSystems/cardSystem') as $cardsystem) {
+    
+      foreach ($cardsystem->xpath('permissions/permission') as $permission) {
+        $counter->permissions[(string) $permission] = (string) $permission;
+      }
 
-    foreach ($object->xpath('permissions/permission') as $permission) {
-      $counter->permissions[] = (string) $permission;
+      foreach ($cardsystem->xpath('groups/group') as $group) {
+        $counter->groups[(string) $group] = (string) $group;
+      }
     }
-
-    foreach ($object->xpath('groups/group') as $group) {
-      $counter->groups[] = (string) $group;
-    }
-
 
 
     return $counter;
