@@ -129,7 +129,8 @@ function culturefeed_ui_activity_context($cnapi_types = array(), $node_types = a
   $request = cnapi_ui_get_active_request();
 
   if ($request) {
-    $type = reset(array_intersect($cnapi_types, array_keys($request)));
+    $reset_request = array_intersect($cnapi_types, array_keys($request));
+    $type = reset($reset_request);
     if ($type) {
       return array(
         'node_id' => $request[$type],
