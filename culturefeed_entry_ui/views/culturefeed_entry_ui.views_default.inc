@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ * default views for entry_api
  */
 
 /**

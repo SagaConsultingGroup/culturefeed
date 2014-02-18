@@ -136,9 +136,9 @@ function culturefeed_entry_ui_menu_local_tasks_alter(&$data, $router_item, $root
     $tabs[] = array('#theme' => 'menu_local_action', '#link' => $link);
 
   }
-  
+
   $culturefeed_user = DrupalCultureFeed::getLoggedInUser();
-  
+
   // Add tab for editing the event.
   if (user_access('edit culturefeed events') && ($event->getEntity()->getCreatedBy() == $culturefeed_user->mbox)) {
 
@@ -218,7 +218,7 @@ function culturefeed_entry_ui_add_more_submit($form, &$form_state) {
   switch ($form_state['input']['_triggering_element_name']) {
 
     case 'datetimes_add_child':
-      //  No need to add as the the add more button is already counted.
+      // No need to add as the the add more button is already counted.
       $form_state['#dates_needed'] = count(element_children($form['basic']['when']['datetimes']));
       break;
 
@@ -260,35 +260,35 @@ function culturefeed_entry_ui_add_more_submit($form, &$form_state) {
     case 'opening_times_add_more':
       $form_state['#opening_times_needed'] = count(element_children($form['basic']['when']['period_or_permanent']['opening_times']['monday'])) + 1;
       break;
-    
+
     case 'ld_add_more':
       $form_state['#ld_needed'] = TRUE;
       break;
-    
+
     case 'price_add_more':
       $form_state['#price_needed'] = TRUE;
       break;
-    
+
     case 'location_add_more':
       $form_state['#location_needed'] = TRUE;
       break;
-      
+
     case 'actor_add_more':
       $form_state['#actor_needed'] = TRUE;
       break;
-      
+
     case 'performers_add_more':
       $form_state['#performers_needed'] = count(element_children($form['extra']['performers']['wrapper']));
       break;
-    
+
     case 'contacts_add_more':
       $form_state['#contacts_needed'] = count(element_children($form['extra']['contacts']['wrapper']));
       break;
-      
+
     case 'languages_add_more':
       $form_state['#languages_needed'] = count(element_children($form['extra']['language']['wrapper']));
       break;
-      
+
   }
 
   $form_state['rebuild'] = TRUE;
@@ -317,54 +317,53 @@ function culturefeed_entry_ui_add_more_js($form, $form_state) {
 
     case 'timestamps_add_more':
       return $form['basic']['timestamps'];
-      
+
     case 'country_select':
       if ($form_state['input']['country_select'] == 'BE') {
         $form['basic']['location']['new']['citywrapper']['city']['#autocomplete_path'] = 'autocomplete/culturefeed/city-suggestion';
         $form['basic']['location']['new']['citywrapper']['zip_code']['#attributes'] = array('style' => array('display:none;'));
         $form['basic']['location']['new']['citywrapper']['zip_code']['#title'] = '';
-      } else {
-	    $form['basic']['location']['new']['citywrapper']['city']['#autocomplete_path'] = '';
-	    $form['basic']['location']['new']['citywrapper']['city']['#value'] = '';  
-	    $form['basic']['location']['new']['citywrapper']['country']['#value'] = $form_state['input']['country_select'];
-	    $form['basic']['location']['new']['citywrapper']['zip_code']['#attributes'] = array('style' => array('display:block;margin-right:30px;'));
-	    $form['basic']['location']['new']['citywrapper']['zip_code']['#title'] = t('ZIP Code');
-	    
+      }
+      else {
+        $form['basic']['location']['new']['citywrapper']['city']['#autocomplete_path'] = '';
+        $form['basic']['location']['new']['citywrapper']['city']['#value'] = '';
+        $form['basic']['location']['new']['citywrapper']['country']['#value'] = $form_state['input']['country_select'];
+        $form['basic']['location']['new']['citywrapper']['zip_code']['#attributes'] = array('style' => array('display:block;margin-right:30px;'));
+        $form['basic']['location']['new']['citywrapper']['zip_code']['#title'] = t('ZIP Code');
+
       }
       return $form['basic']['location']['new']['citywrapper'];
-      return $form['basic']['location']['new']['citywrapper']['zip_code'];
 
     case 'links_add_more':
       return $form['extra']['links'];
 
     case 'opening_times_add_more':
       return $form['basic']['period_or_permanent']['opening_times'];
-      
+
     case 'price_add_more':
       return $form['extra']['price']['extra'];
-      
+
     case 'ld_add_more':
       return $form['extra']['description']['ld'];
-    
+
     case 'location_add_more':
-      //$form['basic']['location']['add_new_location']['#attributes'] = array('style' => array('display:none;'));
       return $form['basic']['location'];
-      
+
     case 'actor_add_more':
       return $form['extra']['organiser'];
-    
+
     case 'performers_add_more':
       return $form['extra']['performers']['wrapper'];
-      
+
     case 'contacts_add_more':
       return $form['extra']['contacts']['wrapper'];
-    
+
     case 'languages_add_more':
       return $form['extra']['language']['wrapper'];
-      
+
     case 'location[actor][location_actor_id]':
       return $form['basic']['location']['actor'];
-      
+
     case 'organiser_actor_id':
       return $form['extra']['organiser']['actor'];
   }
@@ -390,10 +389,13 @@ function culturefeed_entry_ui_get_preferred_language() {
 function culturefeed_entry_ui_views_api() {
   return array(
     'api' => 3,
-    'path' => drupal_get_path('module','culturefeed_entry_ui') . '/views',
+    'path' => drupal_get_path('module', 'culturefeed_entry_ui') . '/views',
   );
 }
 
+/**
+ * Connection with the CDB api.
+ */
 function culturefeed_entry_ui_entity_path(\CultuurNet\Search\ActivityStatsExtendedEntity $entity, $op) {
 
   if ($entity->getType() == 'event') {
@@ -417,6 +419,9 @@ function culturefeed_entry_ui_block_info_alter(&$blocks, $theme, $code_blocks) {
   }
 }
 
+/**
+ * Removes the filter box for text_format fields.
+ */
 function culturefeed_entry_ui_remove_filter_input(&$form) {
 
   unset($form['format']['guidelines']);

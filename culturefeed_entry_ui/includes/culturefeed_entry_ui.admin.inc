@@ -20,7 +20,7 @@ function culturefeed_entry_ui_settings_form($form, &$form_state) {
   $form['culturefeed_entry_ui_preferred_language'] = array(
     '#title' => t('Preferred language'),
     '#type' => 'select',
-    '#empty_option' =>  t('Use the preferred language of the UiTID user, with the Drupal UI language as fallback'),
+    '#empty_option' => t('Use the preferred language of the UiTID user, with the Drupal UI language as fallback'),
     '#options' => $language_options,
     '#default_value' => variable_get('culturefeed_entry_ui_preferred_language', ''),
   );

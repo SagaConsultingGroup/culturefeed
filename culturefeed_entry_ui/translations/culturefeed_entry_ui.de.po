@@ -320,4 +320,3 @@ msgstr ""
 #: includes/culturefeed_entry_ui.pages.inc:1028
 msgid " is not permitted because is's already a custom tag."
 msgstr ""
-
