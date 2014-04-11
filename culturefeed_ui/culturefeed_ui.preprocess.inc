@@ -288,7 +288,7 @@ function template_preprocess_culturefeed_ui_event_recommendation(&$variables) {
   $variables['title'] = l($item->title, $object_url['path'], $object_url['options']);
 
   // date
-  $variables['date'] = $item->description_full;
+  $variables['date'] = truncate_utf8($item->description_full, 60, TRUE, TRUE);
 
   // thumbnail
   $variables['thumbnail'] = !empty($item->thumbnail) ? theme('image', array('path' => $item->thumbnail)) : '';
@@ -346,7 +346,7 @@ function template_preprocess_culturefeed_ui_top_event(&$variables) {
   $variables['title'] = l($event['title'], $object_url['path'], $object_url['options']);
 
   // date
-  $variables['date'] = $event['calendarsummary'];
+  $variables['date'] = truncate_utf8($event['calendarsummary'], 60, TRUE, TRUE);
 
   // thumbnail
   $variables['thumbnail'] = !empty($event['thumbnail']) ? theme('image', array('path' => $event['thumbnail'])) : '';
